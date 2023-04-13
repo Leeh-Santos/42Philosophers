@@ -1,5 +1,7 @@
 SRCS	= main.c \
-
+		  rest/support.c \
+		  rest/schadule.c \
+		  rest/dead.c \
 
 OBJS	= $(SRCS:.c=.o)
 
@@ -7,7 +9,7 @@ NAME	= philo
 
 CC		= cc
 
-CFLAGS	= -Wall -Wextra -Werror -pthread #-g -fsanitize=thread
+CFLAGS	=  -pthread -g -fsanitize=thread #-Wall -Wextra -Werror
 
 RM		= rm -rf
 
