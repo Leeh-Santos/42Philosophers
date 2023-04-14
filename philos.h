@@ -6,7 +6,7 @@
 /*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:09:34 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/13 15:42:34 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/04/13 16:40:18 by learodri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ void	printer(t_philo *phi, char *txt);
 void	takeit(t_philo *phi, int i);
 void eat_it(t_philo *philo);
 int	starve(t_philo *phi);
+void	sleep_it(t_philo *phi);
 
 #endif

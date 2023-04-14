@@ -1,6 +1,6 @@
 SRCS	= main.c \
 		  rest/support.c \
-		  rest/schadule.c \
+		  rest/schedule.c \
 		  rest/dead.c \
 
 OBJS	= $(SRCS:.c=.o)

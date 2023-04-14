@@ -6,7 +6,7 @@
 /*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:01:01 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/13 16:06:36 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/04/13 16:30:48 by learodri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	*dale(void *args)
 			if(philo->nb_ate == info()->nb_eat) //ve se comeu o suficiente e filo sai do while 
 				break ;*/
 		eat_it(philo);
+		sleep_it(philo);
 		
 	}
 	

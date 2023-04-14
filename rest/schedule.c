@@ -1,17 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   schadule.c                                         :+:      :+:    :+:   */
+/*   schedule.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:56:51 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/13 15:54:17 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/04/14 10:36:04 by learodri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philos.h"
 
+void	sleep_it(t_philo *phi)
+{
+	int	time;
+	int sum;
+
+	time = get_time();
+	sum = 0;
+	printer(phi, "is sleeping");
+	while (sum <= info()->sleep_time)
+		sum = get_time() - time;
+	
+}
 
 
 void	eat(t_philo *philo, int der, int izq)
