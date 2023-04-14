@@ -6,7 +6,7 @@
 /*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:56:51 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/14 10:36:04 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/04/14 12:41:20 by learodri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@ void	sleep_it(t_philo *phi)
 
 	time = get_time();
 	sum = 0;
+	if (died())
+		return ;
 	printer(phi, "is sleeping");
 	while (sum <= info()->sleep_time)
 		sum = get_time() - time;
+	if (starve(phi) || died()) //tava aqui
+		return ;
+	printer(phi, "is thinking");
 	
 }
 
@@ -33,6 +38,8 @@ void	eat(t_philo *philo, int der, int izq)
 
 	time = get_time();
 	sum = 0;
+	if (died())
+		return ;
 	printer(philo, "is eating");
 	philo->nb_ate++;
 	while (sum <= info()->eat_time) // trava
@@ -50,14 +57,20 @@ void	eat(t_philo *philo, int der, int izq)
 
 void	takeit(t_philo *phi, int i)
 {
+	while (!starve(phi)) // tem que forcar ele toda hora ate pegar pegar se nao da data racing e demora o dead time 
+	{
 	pthread_mutex_lock(&info()->fork[i].mtx_fork);
 	if (info()->fork[i].fork_slot == 1)
 	{
 		info()->fork[i].fork_slot = 0;
 		phi->nb_fork++;
 		printer(phi, "has taken a fork");
+		pthread_mutex_unlock(&info()->fork[i].mtx_fork);
+		break;
 	}
-	pthread_mutex_unlock(&info()->fork[i].mtx_fork);				
+	else
+		pthread_mutex_unlock(&info()->fork[i].mtx_fork);
+	}				
 }
  
 void eat_it(t_philo *philo)

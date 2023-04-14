@@ -6,7 +6,7 @@
 /*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:01:01 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/13 16:30:48 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/04/14 12:41:46 by learodri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ void	*dale(void *args)
 
 	philo = (t_philo*)args;
 	if (philo->philo_id % 2 == 0)
-		usleep(40000);
+		usleep(100); //more reliable
 	while (!died() && !starve(philo))
 	{
-		/*if(info()->must_eat) // se tem que comer 
+		if(info()->must_eat) // se tem que comer 
 			if(philo->nb_ate == info()->nb_eat) //ve se comeu o suficiente e filo sai do while 
-				break ;*/
+				break ;
 		eat_it(philo);
+		if (starve(philo) || died())
+			break ;
 		sleep_it(philo);
-		
+
 	}
 	
 	
@@ -53,7 +55,6 @@ void	simulation_init(void)
 	if (!info()->philo || !info()->fork)
 		return ; //NULL
 	info()->clock = get_time(); /// change here 
-
 	while (++i < info()->philo_total)
 	{
 		info()->fork[i].fork_slot = 1;
@@ -61,10 +62,10 @@ void	simulation_init(void)
 	}
 
 	i = -1;
-	
+
 	while (++i < info()->philo_total)
 	{
-		//info()->fork[i].fork_slot = 1;
+		//info()->fork[i].fork_slot = 1;  //gives data race
 		//pthread_mutex_init(&info()->fork[i].mtx_fork, NULL);
 		info()->philo[i].nb_ate = 0;
 		info()->philo[i].nb_fork = 0;
