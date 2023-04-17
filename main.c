@@ -6,7 +6,7 @@
 /*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:01:01 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/14 12:41:46 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/04/17 12:27:42 by learodri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*dale(void *args)
 
 	philo = (t_philo*)args;
 	if (philo->philo_id % 2 == 0)
-		usleep(100); //more reliable
+		usleep(80000); // com 100 morre tudo os philo vao atropelando um ao outro -  +0000 vao infinito
 	while (!died() && !starve(philo))
 	{
 		if(info()->must_eat) // se tem que comer 
@@ -35,7 +35,7 @@ void	*dale(void *args)
 				break ;
 		eat_it(philo);
 		if (starve(philo) || died())
-			break ;
+			break;
 		sleep_it(philo);
 
 	}

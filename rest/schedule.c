@@ -6,7 +6,7 @@
 /*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:56:51 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/14 12:41:20 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/04/17 12:28:33 by learodri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	sleep_it(t_philo *phi)
 		sum = get_time() - time;
 	if (starve(phi) || died()) //tava aqui
 		return ;
+	if (died())
+		return 
 	printer(phi, "is thinking");
 	
 }
@@ -40,9 +42,13 @@ void	eat(t_philo *philo, int der, int izq)
 	sum = 0;
 	if (died())
 		return ;
+	
+	usleep(100);
+	//if (!starve(philo)) - over protect
+	
 	printer(philo, "is eating");
 	philo->nb_ate++;
-	while (sum <= info()->eat_time) // trava
+	while (sum <= info()->eat_time && !starve(philo)) // trava
 		sum = get_time() - time;
 	philo->last_meal = get_time();
 	pthread_mutex_lock(&info()->fork[der].mtx_fork); //return forks
@@ -52,6 +58,7 @@ void	eat(t_philo *philo, int der, int izq)
 	info()->fork[izq].fork_slot = 1;
 	pthread_mutex_unlock(&info()->fork[izq].mtx_fork);
 	philo->nb_fork = 0;
+
  
 }
 

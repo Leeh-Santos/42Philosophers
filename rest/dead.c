@@ -6,7 +6,7 @@
 /*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:42:30 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/13 15:44:47 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/04/17 11:45:18 by learodri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int died(void)
 
 int	starve(t_philo *phi)
 {
-	if (get_time() - phi->last_meal >= info()->die_time)
+	if (died())
+		return 1;
+	if ((get_time() - phi->last_meal) >= info()->die_time)
 	{
 		pthread_mutex_lock(&info()->deadmtx);
 		info()->died++;
@@ -36,6 +38,7 @@ int	starve(t_philo *phi)
 			return 1;
 		}
 		pthread_mutex_unlock(&info()->deadmtx);
+		
 	}
 	return 0;
 }
