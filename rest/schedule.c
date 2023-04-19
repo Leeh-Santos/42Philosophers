@@ -6,7 +6,7 @@
 /*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:56:51 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/17 12:28:33 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/04/19 16:05:43 by learodri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,14 @@ void	eat(t_philo *philo, int der, int izq)
 {
 	int	time;
 	int sum;
+	
 
 	time = get_time();
 	sum = 0;
 	if (died())
 		return ;
-	
-	usleep(100);
 	//if (!starve(philo)) - over protect
-	
+	usleep(100);
 	printer(philo, "is eating");
 	philo->nb_ate++;
 	while (sum <= info()->eat_time && !starve(philo)) // trava
@@ -64,19 +63,20 @@ void	eat(t_philo *philo, int der, int izq)
 
 void	takeit(t_philo *phi, int i)
 {
-	while (!starve(phi)) // tem que forcar ele toda hora ate pegar pegar se nao da data racing e demora o dead time 
+	//while (!starve(phi) && !died()) // TAVA WHILE ANTEStem que forcar ele toda hora se nao afeta o dead time
+	while (!starve(phi))
 	{
-	pthread_mutex_lock(&info()->fork[i].mtx_fork);
-	if (info()->fork[i].fork_slot == 1)
-	{
-		info()->fork[i].fork_slot = 0;
-		phi->nb_fork++;
-		printer(phi, "has taken a fork");
-		pthread_mutex_unlock(&info()->fork[i].mtx_fork);
-		break;
-	}
-	else
-		pthread_mutex_unlock(&info()->fork[i].mtx_fork);
+		pthread_mutex_lock(&info()->fork[i].mtx_fork);
+		if (info()->fork[i].fork_slot == 1)
+		{
+			info()->fork[i].fork_slot = 0;
+			phi->nb_fork++;
+			printer(phi, "has taken a fork");
+			pthread_mutex_unlock(&info()->fork[i].mtx_fork);
+			break ;
+		}
+		else
+			pthread_mutex_unlock(&info()->fork[i].mtx_fork);
 	}				
 }
  
@@ -86,16 +86,19 @@ void eat_it(t_philo *philo)
     int der;
 
     der = philo->philo_id - 1;
-    izq = philo->philo_id - 2; //indexes
+    izq = philo->philo_id - 2; 
     if (der == 0) //first philo
         izq = info()->philo_total - 1;
 
-    if (!died() && !starve(philo))
-    {
-        takeit(philo, der);
+	/*izq = philo->philo_id - 1; 
+	der = (philo->philo_id != info()->philo_total) * philo->philo_id;*/ 
+
+   if (!died() && !starve(philo)) //&& !died()
+   {
+        takeit(philo, der); // problema aqui no while no inicio
         takeit(philo, izq);
 		if(philo->nb_fork == 2)
 			eat(philo, der, izq);
-    }
+   }
 	
 } 

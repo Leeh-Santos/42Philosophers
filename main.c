@@ -6,7 +6,7 @@
 /*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:01:01 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/17 12:27:42 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/04/19 16:21:14 by learodri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,32 +28,30 @@ void	*dale(void *args)
 	philo = (t_philo*)args;
 	if (philo->philo_id % 2 == 0)
 		usleep(80000); // com 100 morre tudo os philo vao atropelando um ao outro -  +0000 vao infinito
+	//!died() && !starve(philo)
+	int i = 0;
 	while (!died() && !starve(philo))
 	{
-		if(info()->must_eat) // se tem que comer 
-			if(philo->nb_ate == info()->nb_eat) //ve se comeu o suficiente e filo sai do while 
-				break ;
+		if(info()->must_eat) 
+			if(philo->nb_ate == info()->nb_eat)
 		eat_it(philo);
 		if (starve(philo) || died())
-			break;
+			return NULL ;
 		sleep_it(philo);
-
 	}
-	
-	
-	return NULL;
-
+	return (NULL);
 }
 
 void	simulation_init(void)
 {
 	int	i;
 
+
 	i = -1;
 	info()->philo = malloc(sizeof(t_philo) * info()->philo_total);
 	info()->fork = malloc(sizeof(t_philo) * info()->philo_total);
 	if (!info()->philo || !info()->fork)
-		return ; //NULL
+		return ;
 	info()->clock = get_time(); /// change here 
 	while (++i < info()->philo_total)
 	{
@@ -65,16 +63,15 @@ void	simulation_init(void)
 
 	while (++i < info()->philo_total)
 	{
-		//info()->fork[i].fork_slot = 1;  //gives data race
-		//pthread_mutex_init(&info()->fork[i].mtx_fork, NULL);
 		info()->philo[i].nb_ate = 0;
 		info()->philo[i].nb_fork = 0;
 		info()->philo[i].philo_id = i + 1;
 		info()->philo[i].last_meal = info()->clock;//last meal
-		pthread_create(&info()->philo[i].philo_thr, NULL, &dale,  (void *)&info()->philo[i]);
+		pthread_create(&info()->philo[i].philo_thr, NULL,
+		&dale, (void*)&info()->philo[i]);
 	}
 	i = -1;
-	while (i++ < info()->philo_total)
+	while (++i < info()->philo_total)
 		pthread_join(info()->philo[i].philo_thr, NULL);
 
 }
@@ -103,7 +100,10 @@ void	philo_parse(int argc, char* argv[])
 int		main(int argc, char *argv[])
 {
 	if (argc == 6 || argc == 5)
+	{
 		philo_parse(argc, argv);
+		free_it();
+	}
 	else
 		printf("wrong number of args dog");
 

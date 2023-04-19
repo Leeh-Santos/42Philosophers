@@ -2,6 +2,7 @@ SRCS	= main.c \
 		  rest/support.c \
 		  rest/schedule.c \
 		  rest/dead.c \
+		  rest/free.c
 
 OBJS	= $(SRCS:.c=.o)
 
@@ -9,7 +10,7 @@ NAME	= philo
 
 CC		= cc
 
-CFLAGS	=  -pthread -g -fsanitize=thread #-Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -pthread -g -fsanitize=thread 
 
 RM		= rm -rf
 

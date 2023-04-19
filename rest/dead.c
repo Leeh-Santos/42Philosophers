@@ -6,7 +6,7 @@
 /*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:42:30 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/17 11:45:18 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/04/19 16:13:15 by learodri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int died(void)
     pthread_mutex_lock(&info()->deadmtx);
 	died = info()->died;
     pthread_mutex_unlock(&info()->deadmtx);
-	if(died)
+	if (died)
 		return 1;
 	return 0;
 }
@@ -35,10 +35,9 @@ int	starve(t_philo *phi)
 		if (info()->died)
 		{
 			printer(phi, "died");
-			return 1;
 		}
 		pthread_mutex_unlock(&info()->deadmtx);
-		
+		return 1;	
 	}
 	return 0;
 }
