@@ -6,7 +6,7 @@
 /*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:42:30 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/19 16:13:15 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/04/21 16:26:42 by learodri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	starve(t_philo *phi)
 			printer(phi, "died");
 		}
 		pthread_mutex_unlock(&info()->deadmtx);
-		return 1;	
+		return (1);
 	}
 	return 0;
 }

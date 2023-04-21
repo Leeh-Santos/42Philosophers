@@ -6,7 +6,7 @@
 /*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:56:51 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/19 16:05:43 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/04/21 15:59:47 by learodri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	sleep_it(t_philo *phi)
 		sum = get_time() - time;
 	if (starve(phi) || died()) //tava aqui
 		return ;
-	if (died())
-		return 
 	printer(phi, "is thinking");
 	
 }
@@ -93,7 +91,7 @@ void eat_it(t_philo *philo)
 	/*izq = philo->philo_id - 1; 
 	der = (philo->philo_id != info()->philo_total) * philo->philo_id;*/ 
 
-   if (!died() && !starve(philo)) //&& !died()
+   if (!starve(philo) && !died()) //&& !died()
    {
         takeit(philo, der); // problema aqui no while no inicio
         takeit(philo, izq);

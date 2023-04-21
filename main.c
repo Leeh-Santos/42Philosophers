@@ -6,7 +6,7 @@
 /*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:01:01 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/19 16:21:14 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/04/21 16:08:46 by learodri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	*dale(void *args)
 
 	philo = (t_philo*)args;
 	if (philo->philo_id % 2 == 0)
-		usleep(80000); // com 100 morre tudo os philo vao atropelando um ao outro -  +0000 vao infinito
-	//!died() && !starve(philo)
-	int i = 0;
+		usleep(70000);
 	while (!died() && !starve(philo))
 	{
 		if(info()->must_eat) 
 			if(philo->nb_ate == info()->nb_eat)
+				break;
 		eat_it(philo);
+		usleep(100);
 		if (starve(philo) || died())
 			return NULL ;
 		sleep_it(philo);
@@ -45,7 +45,6 @@ void	*dale(void *args)
 void	simulation_init(void)
 {
 	int	i;
-
 
 	i = -1;
 	info()->philo = malloc(sizeof(t_philo) * info()->philo_total);
