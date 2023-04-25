@@ -6,7 +6,7 @@
 /*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:15:09 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/17 15:37:28 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/04/25 14:43:55 by learodri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ void	free_it(void)
 		}
 		free(info()->fork);
 	}
-	if(&info()->deadmtx)
-		pthread_mutex_destroy(&info()->deadmtx);
+	pthread_mutex_destroy(&info()->deadmtx);
 	if (info()->philo)
 		free(info()->philo);
-		
 }
