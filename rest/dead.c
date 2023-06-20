@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dead.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
+/*   By: learodri <learodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:42:30 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/25 14:46:11 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/05/24 21:24:43 by learodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ int	starve(t_philo *phi)
 	if ((get_time() - phi->last_meal) >= info()->die_time)
 	{
 		pthread_mutex_lock(&info()->deadmtx);
-		info()->died++;
-		if (info()->died)
+		
+		if (!info()->died)
 		{
+			info()->died++;
 			printer(phi, "died");
 		}
 		pthread_mutex_unlock(&info()->deadmtx);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: learodri@student.42.fr <learodri>          +#+  +:+       +#+        */
+/*   By: learodri <learodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:01:01 by learodri@st       #+#    #+#             */
-/*   Updated: 2023/04/25 14:38:45 by learodri@st      ###   ########.fr       */
+/*   Updated: 2023/05/24 20:38:30 by learodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	simulation_init(void)
 
 	i = -1;
 	info()->philo = malloc(sizeof(t_philo) * info()->philo_total);
-	info()->fork = malloc(sizeof(t_philo) * info()->philo_total);
+	info()->fork = malloc(sizeof(t_fork) * info()->philo_total);
 	if (!info()->philo || !info()->fork)
 		return ;
 	info()->clock = get_time();

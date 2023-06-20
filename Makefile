@@ -6,11 +6,11 @@ SRCS	= main.c \
 
 OBJS	= $(SRCS:.c=.o)
 
-NAME	= philo
+NAME	= Minishell
 
 CC		= cc
 
-CFLAGS	= -Wall -Wextra -Werror -pthread -g -fsanitize=thread 
+CFLAGS	= #-Wall -Wextra -Werror -pthread -g 
 
 RM		= rm -rf
 
